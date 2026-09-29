@@ -29,11 +29,6 @@ header.hero{position:relative;z-index:1;text-align:center;padding:96px 24px 64px
 h1{font-size:clamp(32px,6vw,54px);font-weight:700;line-height:1.35;margin-top:10px;color:var(--ink)}
 .scripture{display:inline-block;margin-top:22px;padding:6px 20px;border:1px solid var(--accent);border-radius:999px;font-family:'Noto Sans KR',sans-serif;font-size:15px;color:var(--ink);background:var(--paper)}
 .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 22px}
-nav.chapters{position:relative;z-index:1;max-width:760px;margin:36px auto 0;padding:0 22px}
-nav.chapters ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-nav.chapters a{display:block;font-family:'Noto Sans KR',sans-serif;font-size:14px;color:var(--ink);text-decoration:none;padding:7px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);transition:.2s}
-nav.chapters a:hover{border-color:var(--accent2);color:var(--accent2)}
-nav.chapters a.now{background:var(--ink);color:#fff;border-color:var(--ink);pointer-events:none}
 article{padding:56px 0 40px}
 article p{margin-bottom:1.35em;color:var(--ink);text-align:left}
 article p.lead{font-size:19px}
@@ -49,11 +44,17 @@ article p.lead{font-size:19px}
 .pager a:hover{background:var(--ink);color:#fff}
 .pager .end{color:var(--ink);font-family:'Noto Sans KR',sans-serif;font-size:14px;align-self:center}
 @media(max-width:600px){body{font-size:17px;line-height:1.95}.quote{padding:18px 18px}header.hero{padding:72px 20px 48px}}
+.topnav2{position:sticky;top:0;z-index:40;background:rgba(250,248,241,.95);backdrop-filter:blur(6px);border-bottom:1px solid #ddd6c4;font-family:'Noto Sans KR',sans-serif;font-size:14px}.topnav2 .in{max-width:820px;margin:0 auto;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.topnav2 a{color:#111;text-decoration:none;font-weight:500}.topnav2 a:hover{color:var(--accent,#8a5a12)}.topnav2 .mid{color:#333;font-weight:700}
 </style>
 </head>
 <body>
 <div id="bar"></div>
 <canvas id="bg"></canvas>
+<nav class="topnav2"><div class="in">
+  <a href="5%20너희는%20그리스도에%20대하여.html">← 이전 장</a>
+  <span class="mid">그리스도냐 종교냐</span>
+  <a href="7%20생명을%20나눠%20주시는%20그리스도.html">다음 장 →</a>
+</div></nav>
 
 <header class="hero">
   <div class="book">그리스도냐 종교냐 · 윗트니스 리</div>
@@ -62,7 +63,6 @@ article p.lead{font-size:19px}
   <div class="scripture">성경: 마 28장</div>
 </header>
 
-<nav class="chapters" id="chNav" aria-label="장 목차"></nav>
 
 <main class="wrap">
 <article>
@@ -135,14 +135,7 @@ var CHAPTERS=[
   {n:'제12장',t:'새 종교에 이르는 다섯가지',f:'12 새 종교에 이르는 다섯가지.html'}
 ];
 (function(){
-  var ul=document.createElement('ul'),cur=0;
-  CHAPTERS.forEach(function(c,i){
-    var li=document.createElement('li'),a=document.createElement('a');
-    a.textContent=c.n+(c.t?' '+c.t:'');
-    if(c.now){a.className='now';a.href='#';cur=i}else{a.href=encodeURI(c.f)}
-    li.appendChild(a);ul.appendChild(li);
-  });
-  document.getElementById('chNav').appendChild(ul);
+  var cur=CHAPTERS.findIndex(function(c){return c.now});
   var p=document.getElementById('pager');
   if(cur>0){var pv=CHAPTERS[cur-1],a=document.createElement('a');a.href=encodeURI(pv.f);a.textContent='← '+pv.n+' '+pv.t;p.appendChild(a);}
   if(cur<CHAPTERS.length-1){var nx=CHAPTERS[cur+1],b=document.createElement('a');b.href=encodeURI(nx.f);b.textContent=nx.n+' '+nx.t+' →';p.appendChild(b);}
