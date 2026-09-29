@@ -122,25 +122,30 @@ article p.lead{font-size:19px}
 /* 장 목차 */
 var CHAPTERS=[
   {n:'서문·제1장',t:'신랑이신 그리스도',f:'1 신랑이신 그리스도.html'},
-  {n:'제2장',t:'네 가지 새로운 것들',f:'2 네가지 새로운 것들.html'},
+  {n:'제2장',t:'네가지 새로운 것들',f:'2 네가지 새로운 것들.html'},
   {n:'제3장',t:'안식하는 길',f:'3 안식하는 길.html'},
   {n:'제4장',t:'계시와 이상과 적용',f:'4 계시와 이상과 적용.html'},
   {n:'제5장',t:'너희는 그리스도에 대하여',f:'5 너희는 그리스도에 대하여.html'},
-  {n:'제6장',t:'부활하신 그리스도의 임재',f:'',now:true}
+  {n:'제6장',t:'부활하신 그리스도의 임재',f:'6 부활하신 그리스도의 임재.html',now:true},
+  {n:'제7장',t:'생명을 나눠 주시는 그리스도',f:'7 생명을 나눠 주시는 그리스도.html'},
+  {n:'제8장',t:'시력을 주시는 그리스도',f:'8 시력을 주시는 그리스도.html'},
+  {n:'제9장',t:'주님의 위임',f:'9 주님의 위임.html'},
+  {n:'제10장',t:'사도행전에 나타난 그리스도',f:'10 사도행전에 나타난 그리스도.html'},
+  {n:'제11장',t:'서신서에 나타난 그리스도',f:'11 서신서에 나타난 그리스도.html'},
+  {n:'제12장',t:'새 종교에 이르는 다섯가지',f:'12 새 종교에 이르는 다섯가지.html'}
 ];
 (function(){
-  var ul=document.createElement('ul');
-  CHAPTERS.forEach(function(c){
+  var ul=document.createElement('ul'),cur=0;
+  CHAPTERS.forEach(function(c,i){
     var li=document.createElement('li'),a=document.createElement('a');
     a.textContent=c.n+(c.t?' '+c.t:'');
-    if(c.now){a.className='now';a.href='#'}else{a.href=encodeURI(c.f)}
+    if(c.now){a.className='now';a.href='#';cur=i}else{a.href=encodeURI(c.f)}
     li.appendChild(a);ul.appendChild(li);
   });
   document.getElementById('chNav').appendChild(ul);
-  var p=document.getElementById('pager'),prev=CHAPTERS[CHAPTERS.length-2];
-  var a=document.createElement('a');a.href=encodeURI(prev.f);a.textContent='← '+prev.n+(prev.t?' '+prev.t:'');
-  var s=document.createElement('span');s.className='end';s.textContent='그리스도냐 종교냐 · 마지막 장';
-  p.appendChild(a);p.appendChild(s);
+  var p=document.getElementById('pager');
+  if(cur>0){var pv=CHAPTERS[cur-1],a=document.createElement('a');a.href=encodeURI(pv.f);a.textContent='← '+pv.n+' '+pv.t;p.appendChild(a);}
+  if(cur<CHAPTERS.length-1){var nx=CHAPTERS[cur+1],b=document.createElement('a');b.href=encodeURI(nx.f);b.textContent=nx.n+' '+nx.t+' →';p.appendChild(b);}
 })();
 
 /* 진행 바 */
